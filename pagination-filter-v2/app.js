@@ -5,6 +5,8 @@ const paginationDiv = document.querySelector('.page');
 const studentsPerPage = 10;
 const numberOfButton = Math.floor(listItems.length/studentsPerPage) + 1;
 let itemsOnLastPage = (listItems.length % studentsPerPage);
+const pageHeaderDiv = document.querySelector('.page-header');
+
 
 
 
@@ -85,3 +87,21 @@ function linksToPages(){
 }
 
 linksToPages();
+
+
+
+//Inserting search bar
+
+function searchBox(){
+	const div = document.createElement('div');
+	div.className = 'student-search';
+	const input = document.createElement('input');
+	input.setAttribute('placeholder' , 'Search for students...');
+	const button = document.createElement('button');
+	button.textContent = "Search";
+	div.appendChild(input);
+	div.appendChild(button);
+	pageHeaderDiv.appendChild(div);
+}
+
+searchBox();
