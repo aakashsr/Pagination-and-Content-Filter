@@ -7,7 +7,7 @@ console.log(numberOfButton);
 let itemsOnLastPage = (listItems.length % 10);
 console.log(itemsOnLastPage);
 
-//Function to calculate number of students as per page 
+
 function hideEveryone( list ){
 	for(let i = 0 ; i < list.length ; i++ ){
 		list[i].style.display = "none";
@@ -16,25 +16,26 @@ function hideEveryone( list ){
 
 hideEveryone(listItems);
 
+//Function to calculate number of students as per page 
 function groupList( studentList , pageNumber ){
 	// let lastPage = Math.floor(studentList.length/10) + 1;
 	if( pageNumber === 1){
 		hideEveryone(listItems);
-		for( let i = pageNumber ; i <= 10 ; i++){
+		for( let i = 0 ; i < 10 ; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
 
 	else if( pageNumber == numberOfButton){
 		hideEveryone(listItems); 
-		for( let i = (pageNumber-1)*10 + 1 ; i <= (pageNumber-1)*10+itemsOnLastPage; i++){
+		for( let i = (pageNumber-1)*10  ; i <= (pageNumber-1)*10 + itemsOnLastPage-1; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
 
 	else{
 		hideEveryone(listItems); 
-		for( let i = (pageNumber-1)*10 + 1 ; i <= pageNumber*10; i++){
+		for( let i = (pageNumber-1)*10  ; i <= (pageNumber*10)-1; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
