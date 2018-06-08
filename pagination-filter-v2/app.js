@@ -2,45 +2,46 @@ const listUl = document.querySelector('.student-list');
 const listItems = document.querySelectorAll('.student-item');
 const buttonLi = document.querySelectorAll('.pagination ul li');
 const paginationDiv = document.querySelector('.page');
-const numberOfButton = Math.floor(listItems.length/10) + 1;
-console.log(numberOfButton);
-let itemsOnLastPage = (listItems.length % 10);
-console.log(itemsOnLastPage);
+const studentsPerPage = 10;
+const numberOfButton = Math.floor(listItems.length/studentsPerPage) + 1;
+let itemsOnLastPage = (listItems.length % studentsPerPage);
 
 
+
+//Function to hide the name of studets
 function hideEveryone( list ){
 	for(let i = 0 ; i < list.length ; i++ ){
 		list[i].style.display = "none";
 	}
 }
-
+//Hiding the students initially
 hideEveryone(listItems);
 
 //Function to calculate number of students as per page 
 function groupList( studentList , pageNumber ){
-	// let lastPage = Math.floor(studentList.length/10) + 1;
+	
 	if( pageNumber === 1){
 		hideEveryone(listItems);
-		for( let i = 0 ; i < 10 ; i++){
+		for( let i = 0 ; i < studentsPerPage ; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
 
 	else if( pageNumber == numberOfButton){
 		hideEveryone(listItems); 
-		for( let i = (pageNumber-1)*10  ; i <= (pageNumber-1)*10 + itemsOnLastPage-1; i++){
+		for( let i = (pageNumber-1)*studentsPerPage  ; i <= (pageNumber-1)*studentsPerPage + itemsOnLastPage-1; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
 
 	else{
 		hideEveryone(listItems); 
-		for( let i = (pageNumber-1)*10  ; i <= (pageNumber*10)-1; i++){
+		for( let i = (pageNumber-1)*studentsPerPage  ; i <= (pageNumber*studentsPerPage)-1; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
 }
-
+//Calling the groupList function to show 10 students on the first page initially
 groupList( listItems , 1);
 
 
@@ -48,8 +49,8 @@ groupList( listItems , 1);
 // groupList( listItems , 1);
 
 
-//Function to calculate number of buttons required according to 
-//then appending the buttons to htmllength of students list and 
+//Function to calculate number of buttons required according to length
+//of students list and then appending the buttons to html
 function createButton(listItems){
 	let div = document.createElement('div');
 	div.className = 'pagination';
@@ -79,7 +80,6 @@ function linksToPages(){
 	for(let i = 0 ; i < numberOfButton ; i++){
 		links[i].addEventListener('click' , (event) => {
 			groupList(listItems , event.target.textContent);
-			console.log(event.target.textContent);
 		});
 	}
 }
