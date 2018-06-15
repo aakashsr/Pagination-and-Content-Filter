@@ -1,4 +1,3 @@
-const listUl = document.querySelector('.student-list');
 const listItems = document.querySelectorAll('.student-item');
 const buttonLi = document.querySelectorAll('.pagination ul li');
 const paginationDiv = document.querySelector('.page');
@@ -9,8 +8,8 @@ const pageHeaderDiv = document.querySelector('.page-header');
 
 
 
-
 //Function to hide the name of studets
+
 function hideEveryone( list ){
 	for(let i = 0 ; i < list.length ; i++ ){
 		list[i].style.display = "none";
@@ -19,16 +18,17 @@ function hideEveryone( list ){
 //Hiding the students initially
 hideEveryone(listItems);
 
-//Function to calculate number of students as per page 
+//Function to calculate number of students according to page number 
 function groupList( studentList , pageNumber ){
 	
+	//If it's the first page
 	if( pageNumber === 1){
 		hideEveryone(listItems);
 		for( let i = 0 ; i < studentsPerPage ; i++){
 			studentList[i].style.display = 'block';
 		}
 	}
-
+	//If it's the last page
 	else if( pageNumber == numberOfButton){
 		hideEveryone(listItems); 
 		for( let i = (pageNumber-1)*studentsPerPage  ; i <= (pageNumber-1)*studentsPerPage + itemsOnLastPage-1; i++){
@@ -47,13 +47,9 @@ function groupList( studentList , pageNumber ){
 groupList( listItems , 1);
 
 
-
-// groupList( listItems , 1);
-
-
 //Function to calculate number of buttons required according to length
 //of students list and then appending the buttons to html
-function createButton(listItems){
+function createButton(){
 	let div = document.createElement('div');
 	div.className = 'pagination';
 	let ul = document.createElement('ul');
@@ -71,7 +67,7 @@ function createButton(listItems){
 	paginationDiv.appendChild(div);
 }
 
-createButton(listItems);
+createButton();
 
 
 //Fucntion to add event listener to each link to go to specific pages and 
@@ -90,18 +86,51 @@ linksToPages();
 
 
 
-//Inserting search bar
+//Inserting search bar element
 
 function searchBox(){
 	const div = document.createElement('div');
 	div.className = 'student-search';
 	const input = document.createElement('input');
 	input.setAttribute('placeholder' , 'Search for students...');
+	input.className = "Search-Input";
 	const button = document.createElement('button');
+	button.className = "Search";
 	button.textContent = "Search";
 	div.appendChild(input);
 	div.appendChild(button);
 	pageHeaderDiv.appendChild(div);
 }
-
 searchBox();
+
+//Selecting 'button' element & 'input' element .
+const searchButton = document.getElementsByClassName('Search')[0];
+const searchInput = document.getElementsByClassName('Search-Input')[0];
+//Selecting 'h3' elements consisting of names of students.
+const studentNameList = document.getElementsByTagName('h3');
+
+//Adding event listener to the 'Search' Button.
+searchButton.addEventListener('click' , () => {
+
+	//Checking if the value of input is "empty" or not
+	if( searchInput.value !== ""){
+		let filter = searchInput.value;
+		//Hiding every list items before matching the names so that only 'list-items'
+		//matching with the value of input shown on page
+		hideEveryone(listItems);
+		for(let i = 0 ; i < studentNameList.length ; i++){
+			let studentName = studentNameList[i];
+			if(studentName.textContent.indexOf(filter) > -1 ){
+				console.log(studentName.textContent.indexOf(filter));
+				studentNameList[i].parentNode.parentNode.style.display = 'block';
+			}
+			else{
+				studentNameList[i].parentNode.parentNode.style.display = 'none';
+			}	
+		}
+	}
+	//If the value of 'input' is empty , show the first page of student list
+	else{
+		groupList( listItems , 1);
+	}
+});
