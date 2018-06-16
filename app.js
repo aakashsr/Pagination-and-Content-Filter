@@ -6,6 +6,7 @@ const studentsPerPage = 10;
 const numberOfButton = Math.floor(listItems.length/studentsPerPage) + 1;
 let itemsOnLastPage = (listItems.length % studentsPerPage);
 const pageHeaderDiv = document.querySelector('.page-header');
+const links = document.getElementsByTagName('a');
 
 //Function to hide the name of studets
 
@@ -73,15 +74,23 @@ createButton();
 //display specific number of results
 
 function linksToPages(){
-	const links = document.getElementsByTagName('a');
+	links[0].className = 'active';
 	for(let i = 0 ; i < numberOfButton ; i++){
 		links[i].addEventListener('click' , (event) => {
+			var current = document.getElementsByClassName("active");
+			current[0].className = current[0].className.replace("active","");
+			event.target.className = "active";
 			groupList(listItems , event.target.textContent);
+
 		});
 	}
 }
 
 linksToPages();
+
+function activeLink(){
+	
+}
 
 //Inserting search bar element
 
@@ -142,6 +151,10 @@ searchButton.addEventListener('click' , () => {
 	else{
 		randomList.style.display = "none";
 		groupList( listItems , 1);
+		var current = document.getElementsByClassName("active");
+		current[0].className = current[0].className.replace("active","");
+		links[0].className = 'active';
+
 	}
 });
 
