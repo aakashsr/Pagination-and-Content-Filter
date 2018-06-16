@@ -1,3 +1,4 @@
+const listUl = document.querySelector('.student-list');
 const listItems = document.querySelectorAll('.student-item');
 const buttonLi = document.querySelectorAll('.pagination ul li');
 const paginationDiv = document.querySelector('.page');
@@ -108,29 +109,41 @@ const searchButton = document.getElementsByClassName('Search')[0];
 const searchInput = document.getElementsByClassName('Search-Input')[0];
 //Selecting 'h3' elements consisting of names of students.
 const studentNameList = document.getElementsByTagName('h3');
+var lis = document.createElement('li');
+lis.className = "student-item";
+lis.textContent = "No elements have been found!";
+listUl.insertBefore(lis , listUl.firstElementChild);
+listUl.firstElementChild.style.display = "none";
+
 
 //Adding event listener to the 'Search' Button.
 searchButton.addEventListener('click' , () => {
-
 	//Checking if the value of input is "empty" or not
 	if( searchInput.value !== ""){
 		let filter = searchInput.value;
 		//Hiding every list items before matching the names so that only 'list-items'
 		//matching with the value of input shown on page
-		hideEveryone(listItems);
 		for(let i = 0 ; i < studentNameList.length ; i++){
 			let studentName = studentNameList[i];
-			if(studentName.textContent.indexOf(filter) > -1 ){
+			if(studentName.textContent.indexOf(filter) > -1){
 				console.log(studentName.textContent.indexOf(filter));
 				studentNameList[i].parentNode.parentNode.style.display = 'block';
+				console.log(listUl.firstElementChild);
+				listUl.firstElementChild.style.display = "none";
+				
 			}
-			else{
+			else if(studentName.textContent.indexOf(filter) == " " || studentName.textContent.indexOf(filter) == -1){
 				studentNameList[i].parentNode.parentNode.style.display = 'none';
-			}	
+				listUl.firstElementChild.style.display = "block";
+			}
 		}
 	}
+
 	//If the value of 'input' is empty , show the first page of student list
 	else{
 		groupList( listItems , 1);
 	}
 });
+
+
+
