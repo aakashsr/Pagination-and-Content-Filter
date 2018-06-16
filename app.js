@@ -132,7 +132,7 @@ searchButton.addEventListener('click' , () => {
 				listUl.firstElementChild.style.display = "none";
 				
 			}
-			else if(studentName.textContent.indexOf(filter) == " " || studentName.textContent.indexOf(filter) == -1){
+			else{
 				studentNameList[i].parentNode.parentNode.style.display = 'none';
 				listUl.firstElementChild.style.display = "block";
 			}
