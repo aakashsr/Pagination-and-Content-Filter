@@ -3,7 +3,7 @@ const listItems = document.querySelectorAll('.student-item');
 const buttonLi = document.querySelectorAll('.pagination ul li');
 const paginationDiv = document.querySelector('.page');
 const studentsPerPage = 10;
-const numberOfButton = Math.floor(listItems.length/studentsPerPage) + 1;
+let numberOfButton = Math.floor(listItems.length/studentsPerPage) + 1;
 let itemsOnLastPage = (listItems.length % studentsPerPage);
 const pageHeaderDiv = document.querySelector('.page-header');
 const links = document.getElementsByTagName('a');
@@ -49,7 +49,7 @@ groupList( listItems , 1);
 
 //Function to calculate number of buttons required according to length
 //of students list and then appending the buttons to html
-function createButton(){
+function createButton(numberOfButton){
 	let div = document.createElement('div');
 	div.className = 'pagination';
 	let ul = document.createElement('ul');
@@ -67,7 +67,7 @@ function createButton(){
 	paginationDiv.appendChild(div);
 }
 
-createButton();
+createButton(6);
 
 
 //Fucntion to add event listener to each link to go to specific pages and 
@@ -75,7 +75,7 @@ createButton();
 
 function linksToPages(){
 	links[0].className = 'active';
-	for(let i = 0 ; i < numberOfButton ; i++){
+	for(let i = 0 ; i < numberOfButton; i++){
 		links[i].addEventListener('click' , (event) => {
 			var current = document.getElementsByClassName("active");
 			current[0].className = current[0].className.replace("active","");
@@ -87,10 +87,6 @@ function linksToPages(){
 }
 
 linksToPages();
-
-function activeLink(){
-	
-}
 
 //Inserting search bar element
 
@@ -127,6 +123,10 @@ randomList.style.display = "none";
 //Adding event listener to the 'Search' Button.
 searchButton.addEventListener('click' , () => {
 	//Checking if the value of input is "empty" or not
+	for( let i = 0 ; i < numberOfButton ; i++){
+		links[i].style.display = 'none';
+	}
+
 	if( searchInput.value !== ""){
 		var counter = 0;
 		var filter = searchInput.value;
@@ -156,6 +156,13 @@ searchButton.addEventListener('click' , () => {
 		links[0].className = 'active';
 
 	}
+
+	var buttonCount = Math.floor(counter/10+1);
+	for( let i = 1 ; i <= buttonCount ; i++){
+
+		links[i].style.display = "block";
+	}
+
 });
 
 
