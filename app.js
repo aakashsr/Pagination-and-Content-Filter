@@ -3,10 +3,8 @@ const listItems = document.querySelectorAll('.student-item');
 const buttonLi = document.querySelectorAll('.pagination ul li');
 const paginationDiv = document.querySelector('.page');
 const studentsPerPage = 10;
-let numberOfButton = Math.floor(listItems.length/studentsPerPage) + 1;
-let itemsOnLastPage = (listItems.length % studentsPerPage);
 const pageHeaderDiv = document.querySelector('.page-header');
-const links = document.getElementsByTagName('a');
+const paginationLinksDiv = document.querySelector('.paginationLinksDiv');
 
 //Function to hide the name of studets
 
@@ -20,7 +18,10 @@ hideEveryone(listItems);
 
 //Function to calculate number of students according to page number 
 function groupList( studentList , pageNumber ){
-	
+	var numberOfButton = Math.floor(studentList.length/studentsPerPage) + 1;
+	console.log(Math.floor(studentList.length/studentsPerPage) + 1)
+	let itemsOnLastPage = (studentList.length % studentsPerPage);
+	console.log(itemsOnLastPage);
 	//If it's the first page
 	if( pageNumber === 1){
 		hideEveryone(listItems);
@@ -42,6 +43,8 @@ function groupList( studentList , pageNumber ){
 			studentList[i].style.display = 'block';
 		}
 	}
+
+	
 }
 //Calling the groupList function to show 10 students on the first page initially
 groupList( listItems , 1);
@@ -54,7 +57,6 @@ function createButton(numberOfButton){
 	div.className = 'pagination';
 	let ul = document.createElement('ul');
 	div.appendChild(ul);
-	// const numberOfButton = Math.floor(listItems.length/10) + 1;
 	for( let i = 1 ; i <= numberOfButton; i++){
 		let li = document.createElement('li');
 		let a = document.createElement('a');
@@ -64,29 +66,31 @@ function createButton(numberOfButton){
 		ul.appendChild(li);
 
 	}
-	paginationDiv.appendChild(div);
+	paginationLinksDiv.appendChild(div);
 }
 
 createButton(6);
 
 
-//Fucntion to add event listener to each link to go to specific pages and 
+//Function to add event listener to each link to go to specific pages and 
 //display specific number of results
 
-function linksToPages(){
-	links[0].className = 'active';
+function linksToPages(studentList){
+	var aLinks = document.getElementsByTagName('a');
+	var numberOfButton = Math.floor(studentList.length/studentsPerPage) + 1;
+	aLinks[0].className = 'active';
 	for(let i = 0 ; i < numberOfButton; i++){
-		links[i].addEventListener('click' , (event) => {
+		aLinks[i].addEventListener('click' , (event) => {
 			var current = document.getElementsByClassName("active");
 			current[0].className = current[0].className.replace("active","");
 			event.target.className = "active";
-			groupList(listItems , event.target.textContent);
+			groupList(studentList , event.target.textContent);
 
 		});
 	}
 }
 
-linksToPages();
+linksToPages(listItems);
 
 //Inserting search bar element
 
@@ -123,10 +127,11 @@ randomList.style.display = "none";
 //Adding event listener to the 'Search' Button.
 searchButton.addEventListener('click' , () => {
 	//Checking if the value of input is "empty" or not
-	for( let i = 0 ; i < numberOfButton ; i++){
-		links[i].style.display = 'none';
-	}
-
+	// for( let i = 0 ; i < numberOfButton ; i++){
+	// 	links[i].style.display = 'none';
+	// }
+	paginationLinksDiv.innerHTML = "";
+	var newStudentList = [];
 	if( searchInput.value !== ""){
 		var counter = 0;
 		var filter = searchInput.value;
@@ -134,6 +139,7 @@ searchButton.addEventListener('click' , () => {
 			let studentName = studentNameList[i];
 			if(studentName.textContent.indexOf(filter) > -1){
 				studentNameList[i].parentNode.parentNode.style.display = 'block';
+				newStudentList.push(studentNameList[i].parentNode.parentNode);
 				counter += 1;
 				randomList.style.display = "none";
 			}
@@ -149,6 +155,7 @@ searchButton.addEventListener('click' , () => {
 
 	//If the value of 'input' is empty , show the first page of student list
 	else{
+		let links = document.getElementsByTagName('a');
 		randomList.style.display = "none";
 		groupList( listItems , 1);
 		var current = document.getElementsByClassName("active");
@@ -156,14 +163,17 @@ searchButton.addEventListener('click' , () => {
 		links[0].className = 'active';
 
 	}
-
-	var buttonCount = Math.floor(counter/10+1);
-	for( let i = 1 ; i <= buttonCount ; i++){
-
-		links[i].style.display = "block";
-	}
+	console.log(newStudentList.length);
+	groupList(newStudentList , 1);
+	createRandomLinks(counter);
+	linksToPages(newStudentList);
 
 });
+
+function createRandomLinks(listItemsNumber){
+	var buttonCount = Math.floor(listItemsNumber/10+1);
+	createButton(buttonCount);
+}
 
 
 
