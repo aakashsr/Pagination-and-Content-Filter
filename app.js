@@ -98,6 +98,7 @@ createButton(initialListLength);
 function linksToPages(studentList){
 	if(studentList.length > 10){
 		var aLinks = document.getElementsByTagName('a');
+		console.log(aLinks);
 		var numberOfButton = Math.floor(studentList.length/studentsPerPage) + 1;
 		aLinks[0].className = 'active';
 		for(let i = 0 ; i < numberOfButton; i++){
@@ -107,8 +108,8 @@ function linksToPages(studentList){
 			current[0].className = current[0].className.replace("active","");
 			event.target.className = "active";
 			groupList(studentList , event.target.textContent);
-
 		});
+
 		}
 	}
 }
@@ -152,6 +153,7 @@ searchButton.addEventListener('click' , () => {
 	//Making paginationLinksDiv "empty" when user click on serch button to prevent the 
 	//buttons from creating everytime user clicks on "search" button
 	paginationLinksDiv.innerHTML = "";
+
 	var newStudentList = [];
 	if( searchInput.value !== ""){
 		var filter = searchInput.value;
@@ -178,21 +180,24 @@ searchButton.addEventListener('click' , () => {
 
 	//If the value of 'input' is empty , show the first page of student list
 	else{
-		let links = document.getElementsByTagName('a');
 		randomList.style.display = "none";
 		groupList( listItems , 1);
-		//Also makes the first link active
-		var current = document.getElementsByClassName("active");
-		current[0].className = current[0].className.replace("active","");
-		links[0].className = 'active';
-
+		//As you have set the "textContent" of paginationLinksDiv to 'empty' , you have to call "createButton" function to show buttons
+		createButton(initialListLength);
+		//Now , you have to call "linkToPages" function to add functionality to these newly created buttons
+		linksToPages(listItems);
 	}
-	//Always showing the first page of students list when "searchInput.value" matches the names of students lists
-	groupList(newStudentList , 1);
-	//Creating random links on the basis of length of students list
-	createRandomLinks(newStudentList.length);
-	//Adding the functionality to the newly created links
-	linksToPages(newStudentList);
+
+	//Always showing the first page of students list when "searchInput.value" matches the names of students lists.
+	//Run these functions only , when there is atleast one element within the "newStudentList" , otherwise above "else" condition will rule.
+	if( newStudentList.length > 1 ){
+		groupList(newStudentList , 1);
+		// //Creating random links on the basis of length of students list
+		createRandomLinks(newStudentList.length);
+		// //Adding the functionality to the newly created links
+		linksToPages(newStudentList);
+	}
+
 });
 
 //Function to create random links on the basis of length of students list
