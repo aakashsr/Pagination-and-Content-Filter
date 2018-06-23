@@ -146,6 +146,7 @@ listUl.appendChild(lis);
 const randomList = document.querySelector('.random-list');
 //Hiding the newly created list item initially
 randomList.style.display = "none";
+var studentDetails = document.querySelectorAll('.student-details');
 
 
 //Adding event listener to the 'Search' Button.
@@ -153,21 +154,21 @@ searchButton.addEventListener('click' , () => {
 	//Making paginationLinksDiv "empty" when user click on serch button to prevent the 
 	//buttons from creating everytime user clicks on "search" button
 	paginationLinksDiv.innerHTML = "";
-
 	var newStudentList = [];
 	if( searchInput.value !== ""){
 		var filter = searchInput.value;
-		for(let i = 0 ; i < studentNameList.length ; i++){
-			let studentName = studentNameList[i];
-			if(studentName.textContent.indexOf(filter) > -1){
-				studentNameList[i].parentNode.parentNode.style.display = 'block';
+		for(let i = 0 ; i < studentDetails.length; i++){
+			const studentName = studentDetails[i].querySelector('h3').textContent;
+			const studentEmail =  studentDetails[i].querySelector('span').textContent;
+			if(studentName.indexOf(filter) > -1 || studentEmail.indexOf(filter) > -1){
+				studentDetails[i].parentNode.style.display = 'block';
 				//Adding the matched students to the newly created array
-				newStudentList.push(studentNameList[i].parentNode.parentNode);
+				newStudentList.push(studentDetails[i].parentNode);
 				//Hiding the newly created list item when "searchInput.value" matches any of the name of students
 				randomList.style.display = "none";
 			}
 			else{
-				studentNameList[i].parentNode.parentNode.style.display = 'none';
+				studentDetails[i].parentNode.style.display = 'none';
 			}
 		}
 
@@ -197,7 +198,6 @@ searchButton.addEventListener('click' , () => {
 		// //Adding the functionality to the newly created links
 		linksToPages(newStudentList);
 	}
-
 });
 
 //Function to create random links on the basis of length of students list
