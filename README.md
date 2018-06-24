@@ -1,4 +1,5 @@
-# Pagination-and-Content-Filter
-Pagination and content filter
+#Pagination and Content Filter
 
 [View Project](https://aakashsr.github.io/Pagination-and-Content-Filter/)
+
+>>>>>>> gh-pages
