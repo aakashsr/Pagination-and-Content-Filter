@@ -158,11 +158,11 @@ searchButton.addEventListener('click' , () => {
 	paginationLinksDiv.innerHTML = "";
 	var newStudentList = [];
 	if( searchInput.value !== ""){
-		var inputName = searchInput.value;
+		var inputValue = searchInput.value;
 		for(let i = 0 ; i < studentDetails.length; i++){
 			const studentName = studentDetails[i].querySelector('h3').textContent;
 			const studentEmail =  studentDetails[i].querySelector('span').textContent;
-			if(studentName.indexOf(inputName) > -1 || studentEmail.indexOf(inputName) > -1){
+			if(studentName.indexOf(inputValue) > -1 || studentEmail.indexOf(inputValue) > -1){
 				studentDetails[i].parentNode.style.display = 'block';
 				//Adding the matched students to the newly created array
 				newStudentList.push(studentDetails[i].parentNode);
