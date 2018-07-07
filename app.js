@@ -153,8 +153,8 @@ var studentDetails = document.querySelectorAll('.student-details');
 
 //Adding event listener to the 'Search' Button.
 searchButton.addEventListener('click' , () => {
-	//Making paginationLinksDiv "empty" when user click on serch button to prevent the 
-	//buttons from creating everytime user clicks on "search" button
+	//Making paginationLinksDiv "empty" so that  when user click on 'search' button , we will append the pagination 
+	//links within the same 'div' , thus preventing the creation of pagination links everytime user clicks on 'search' button 
 	paginationLinksDiv.innerHTML = "";
 	var newStudentList = [];
 	if( searchInput.value !== ""){
