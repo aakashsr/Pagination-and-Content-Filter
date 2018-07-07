@@ -27,21 +27,21 @@ function groupList( studentList , pageNumber ){
 	if( studentList.length > studentsPerPage){
 		//If it's the first page
 		if( pageNumber == 1){
-			hideEveryone(listItems);
+			hideEveryone(studentList);
 			for( let i = 0 ; i < studentsPerPage ; i++){
 				studentList[i].style.display = 'block';
 			}
 		}
 		//If it's the last page
 		else if( pageNumber == numberOfButton){
-			hideEveryone(listItems); 
+			hideEveryone(studentList); 
 			for( let i = (pageNumber-1)*studentsPerPage  ; i <= (pageNumber-1)*studentsPerPage + itemsOnLastPage-1; i++){
 				studentList[i].style.display = 'block';
 			}
 		}
 		//If it's the any other page
 		else{
-			hideEveryone(listItems); 
+			hideEveryone(studentList); 
 			for( let i = (pageNumber-1)*studentsPerPage  ; i <= (pageNumber*studentsPerPage)-1; i++){
 				studentList[i].style.display = 'block';
 			}
@@ -52,7 +52,7 @@ function groupList( studentList , pageNumber ){
 	//be only 2 results . So we will let the loop run upto "studentList.length" ,which is 2.
 	else{
 		if( pageNumber == 1){
-			hideEveryone(listItems);
+			hideEveryone(studentList);
 			for( let i = 0 ; i < studentList.length ; i++){
 				studentList[i].style.display = 'block';
 			}
