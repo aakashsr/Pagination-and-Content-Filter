@@ -100,7 +100,6 @@ createButton(initianButtonCount);
 function linksToPages(studentList){
 	if(studentList.length > 10){
 		var aLinks = document.getElementsByTagName('a');
-		console.log(aLinks);
 		var numberOfButton = Math.floor(studentList.length/studentsPerPage) + 1;
 		aLinks[0].className = 'active';
 		for(let i = 0 ; i < numberOfButton; i++){
@@ -188,7 +187,7 @@ searchButton.addEventListener('click' , () => {
 		//As you have set the "textContent" of paginationLinksDiv to 'empty' , you have to call "createButton" function to show buttons
 		createButton(initianButtonCount);
 		//Now , you have to call "linkToPages" function to add functionality to these newly created buttons
-		linksToPages(listItems);
+		linksToPages(listItems); 
 	}
 
 	//Always showing the first page of students list when "searchInput.value" matches the names of students lists.
