@@ -176,7 +176,7 @@ searchButton.addEventListener('click' , () => {
 
 		if( newStudentList.length == 0){
 			//Showing the newly created list item with message "No elements have been found!" 
-			//when no element matches with "searchInput.value"
+			//when no element matches with "inputValue"
 			randomList.style.display = "block";
 		}
 	}
