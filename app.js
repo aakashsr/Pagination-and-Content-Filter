@@ -5,7 +5,7 @@ const paginationDiv = document.querySelector('.page');
 const studentsPerPage = 10;
 const pageHeaderDiv = document.querySelector('.page-header');
 const paginationLinksDiv = document.querySelector('.paginationLinksDiv');
-const initialListLength =  Math.floor(listItems.length/studentsPerPage) + 1;
+const initianButtonCount =  Math.floor(listItems.length/studentsPerPage) + 1; //Rename the variable by 'initianButtonCount'
 
 //Function to hide individual students
 function hideEveryone( list ){
@@ -86,7 +86,7 @@ function createButton(numberOfButton){
 }
 
 //Initially creating number of buttons as per the length of studentList
-createButton(initialListLength);
+createButton(initianButtonCount);
 
 
 //Function to add event listener to each link to go to specific pages and 
@@ -184,7 +184,7 @@ searchButton.addEventListener('click' , () => {
 		randomList.style.display = "none";
 		groupList( listItems , 1);
 		//As you have set the "textContent" of paginationLinksDiv to 'empty' , you have to call "createButton" function to show buttons
-		createButton(initialListLength);
+		createButton(initianButtonCount);
 		//Now , you have to call "linkToPages" function to add functionality to these newly created buttons
 		linksToPages(listItems);
 	}
