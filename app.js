@@ -51,6 +51,8 @@ function groupList( studentList , pageNumber ){
 	//value of studentsPerPage . For ex: When we search students ,say "phil" , there will
 	//be only 2 results . So we will let the loop run upto "studentList.length" ,which is 2.
 	else{
+		//function has pageNumber as parameter so we have to compute in terms of pageNumber.Although , there 
+		//will always be only one page in this case , but still we have to provide pageNumber as function has pageNumber paramater
 		if( pageNumber == 1){
 			hideEveryone(studentList);
 			for( let i = 0 ; i < studentList.length ; i++){
