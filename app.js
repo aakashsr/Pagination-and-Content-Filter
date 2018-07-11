@@ -157,7 +157,7 @@ searchButton.addEventListener('click' , () => {
 	paginationLinksDiv.innerHTML = "";
 	var newStudentList = [];
 	if( searchInput.value !== ""){
-		var inputValue = searchInput.value;
+		var inputValue = searchInput.value.toLowerCase();
 		for(let i = 0 ; i < studentDetails.length; i++){
 			const studentName = studentDetails[i].querySelector('h3').textContent;
 			const studentEmail =  studentDetails[i].querySelector('span').textContent;
